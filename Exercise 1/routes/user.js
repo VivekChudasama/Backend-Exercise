@@ -6,7 +6,7 @@ router.get('/users1' , controller.users1)
 
 router.get('/users/:id' , controller.getUserById)
 
-router.post('/users' , controller.getAllUsers)
+router.post('/users' , controller.CreateUsers)
 
 router.delete('/users/:id' , controller.deleteUserById)
 
