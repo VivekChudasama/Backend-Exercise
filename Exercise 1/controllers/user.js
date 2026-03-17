@@ -23,14 +23,14 @@ exports.getUserById = (req, res, next) => {
 
 //create user
 exports.CreateUsers = (req, res, next) => {
-       const newUser = {
+    const newUser = {
         id: users.length + 1,
-        name: req.query.name ,
-        age : req.query.age,
-        number : req.query.number
-      };
-      users.push(newUser);
-      res.status(200).json(newUser);
+        name: req.query.name,
+        age: req.query.age,
+        number: req.query.number
+    };
+    users.push(newUser);
+    res.status(201).json(newUser);
 }
 
 //delete user
@@ -38,10 +38,10 @@ exports.deleteUserById = (req, res, next) => {
     const userId = parseInt(req.params.id);
     const userfound = users.findIndex(u => u.id === userId);
     if (userfound === -1) {
-        return res.status(404).json({ message: 'User not found' }); 
+        return res.status(404).json({ message: 'User not found' });
     }
-    const user = users.filter(user => userfound != user.id);
-    res.status(200).send(user);
+    const delUser = users.splice(userfound, 1);
+    res.status(204).send(delUser);
 
 }
 
