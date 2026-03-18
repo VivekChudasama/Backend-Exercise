@@ -21,8 +21,6 @@ app.get('/', (req, res) => {
     res.send('welcome to webpage');
 })
 
-app.use(userController.countRequests)
-
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl} [STARTED]`)
     const start = process.hrtime()
@@ -39,6 +37,9 @@ app.use((req, res, next) => {
 
     next()
 })
+
+app.use(userController.countRequests)
+app.use(userController.countindividualRequests)
 
 app.use(userRoutes)
 app.use(analyticsRoutes)
