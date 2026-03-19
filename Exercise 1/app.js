@@ -1,6 +1,4 @@
 const express = require('express')
-const cors = require('cors')
-
 const app = express();
 
 const userRoutes = require('./routes/user')
@@ -8,8 +6,7 @@ const userController = require('./controllers/user')
 const analyticsRoutes = require('./routes/analytics')
 const errorController = require('./controllers/error');
 
-app.use(cors());
-
+//logging request method and request URL in consol
 app.use((req, res, next) => {
     console.log(`request method : ${req.method} and request URL : ${req.url}`)
     next()
@@ -17,10 +14,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('welcome to webpage');
-})
-
+//get and log the start , finish , close time of the request
 app.use((req, res, next) => {
     console.log(`${req.method} ${req.originalUrl} [STARTED]`)
     const start = process.hrtime()
@@ -38,13 +32,18 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use(userController.countRequests)
-app.use(userController.countindividualRequests)
+app.get('/', (req, res) => {
+    res.send('welcome to webpage');
+})
+
 
 app.use(userRoutes)
 app.use(analyticsRoutes)
 
+app.use(userController.countRequests)
+app.use(userController.countindividualRequests)
 app.use(errorController.get404);
+
 
 const PORT = 3001;
 

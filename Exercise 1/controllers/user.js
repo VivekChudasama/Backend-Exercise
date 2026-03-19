@@ -1,5 +1,3 @@
-const responseTime = require('response-time')
-
 let users = [
     { id: 1, name: "Rahul", age: 20, number: 1234567890 },
     { id: 2, name: "Vikram", age: 20, number: 1234567890 },
@@ -36,11 +34,13 @@ exports.countindividualRequests = (req, res, next) => {
     next();
 };
 
+//return the length of the array to get total request.
 exports.getTotalAnalytics = () => {
     return {
         totalRequests: requests.length
     };
 };
+
 
 exports.getIndividualRequest = () => {
     return {
